@@ -67,6 +67,9 @@ public class Book {
 	@OneToMany(mappedBy = "book", orphanRemoval = true)
 	private Collection<Review> reviews;
 	
+	@OneToMany(mappedBy = "book")
+	private Collection<OrderDetail> orderDetails;
+	
 	public Book() {}
 	
 	public Book(String title, String description, String isbn, byte[] image, 
@@ -181,6 +184,14 @@ public class Book {
 	
 	public void setReviews(Collection<Review> reviews) {
 		this.reviews = reviews;
+	}
+	
+	public Collection<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+	
+	public void setOrderDetails(Collection<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 	@Override

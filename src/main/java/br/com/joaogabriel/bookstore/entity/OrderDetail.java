@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -28,6 +29,9 @@ public class OrderDetail {
 	
 	@Column(nullable = false, precision = 10, scale = 2)
 	private BigDecimal subTotal;
+	
+	@ManyToOne
+	private Book book;
 	
 	public OrderDetail() { }
 	
@@ -67,6 +71,14 @@ public class OrderDetail {
 
 	public void setSubTotal(BigDecimal subTotal) {
 		this.subTotal = subTotal;
+	}
+	
+	public Book getBook() {
+		return book;
+	}
+	
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override
