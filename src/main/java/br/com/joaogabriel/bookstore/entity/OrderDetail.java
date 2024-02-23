@@ -1,7 +1,6 @@
 package br.com.joaogabriel.bookstore.entity;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -25,9 +23,6 @@ public class OrderDetail {
 	@OneToOne
 	private Order order;
 	
-	@OneToMany(mappedBy = "orderDetail")
-	private List<Book> book;
-	
 	@Column(nullable = false)
 	private Integer quantity;
 	
@@ -36,9 +31,8 @@ public class OrderDetail {
 	
 	public OrderDetail() { }
 	
-	public OrderDetail(Order order, List<Book> book, Integer quantity, BigDecimal subTotal) {
+	public OrderDetail(Order order, Integer quantity, BigDecimal subTotal) {
 		this.order = order; 
-		this.book = book; 
 		this.quantity = quantity; 
 		this.subTotal = subTotal;
 	}
@@ -57,14 +51,6 @@ public class OrderDetail {
 
 	public void setOrder(Order order) {
 		this.order = order;
-	}
-
-	public List<Book> getBook() {
-		return book;
-	}
-
-	public void setBook(List<Book> book) {
-		this.book = book;
 	}
 
 	public Integer getQuantity() {

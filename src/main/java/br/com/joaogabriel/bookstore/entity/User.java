@@ -8,6 +8,7 @@ import java.util.UUID;
 import br.com.joaogabriel.bookstore.enumerations.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -54,6 +55,7 @@ public class User {
 	
 	@Embedded
 	@Column(nullable = false)
+	@ElementCollection
 	private Set<Address> adresses;
 	
 	@Column(nullable = false)
