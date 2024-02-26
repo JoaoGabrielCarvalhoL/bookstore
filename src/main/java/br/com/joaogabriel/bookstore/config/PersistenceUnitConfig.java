@@ -1,5 +1,6 @@
 package br.com.joaogabriel.bookstore.config;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,10 +13,19 @@ public class PersistenceUnitConfig {
 	
 	private final Logger logger = Logger.getLogger(PersistenceUnitConfig.class.getName());
 	
+	private static PersistenceUnitConfig instance = null;
+	
 	private EntityManagerFactory entityManagerFactory = null;
 	
-	public PersistenceUnitConfig() {
+	private PersistenceUnitConfig() {
 		createEntityManagerFactory();
+	}
+	
+	public static synchronized PersistenceUnitConfig getInstance() {
+		if (Objects.isNull(instance)) {
+			instance = new PersistenceUnitConfig();
+		}
+		return PersistenceUnitConfig.instance;
 	}
 	
 	private EntityManagerFactory createEntityManagerFactory() {
