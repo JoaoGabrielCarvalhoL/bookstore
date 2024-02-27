@@ -1,11 +1,13 @@
 package br.com.joaogabriel.bookstore.config;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import br.com.joaogabriel.bookstore.dao.Ordering;
 import br.com.joaogabriel.bookstore.entity.Author;
+import br.com.joaogabriel.bookstore.entity.builder.AuthorBuilder;
 import br.com.joaogabriel.bookstore.repository.AuthorRepository;
 
 public class Test {
@@ -41,6 +43,15 @@ public class Test {
 		for (Author a : allPageable) {
 			System.out.println(a.getId() + a.getName());
 		}
+		
+		Author another = new AuthorBuilder().builder()
+				.name("Gohan Transformação Bolada")
+				.books(Collections.emptyList())
+				.build();
+		
+		System.out.println("___________________________");
+		
+		System.out.println(another.getName());
 	}
 
 }

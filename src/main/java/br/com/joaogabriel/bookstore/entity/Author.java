@@ -72,7 +72,10 @@ public class Author {
 		Author other = (Author) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Author [id=" + id + ", books=" + books + ", name=" + name + "]";
+	}
+	
 }
