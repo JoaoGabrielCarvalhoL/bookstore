@@ -29,7 +29,7 @@ public abstract class SimpleGenericDao<T, ID> implements CrudDao<T, ID> {
 	/**
 	 * @param Class<T> It is necessary to inform the class of the entity.
 	 */
-	protected SimpleGenericDao(Class<T> classe) {
+	public SimpleGenericDao(Class<T> classe) {
 		this.domainClass = classe;
 		this.logger = Logger.getLogger(domainClass.getName());
 		firstElement = domainClass.getSimpleName().charAt(0);
@@ -125,6 +125,12 @@ public abstract class SimpleGenericDao<T, ID> implements CrudDao<T, ID> {
 			logger.log(Level.SEVERE, "Unable to retrieve object from database.");
 			throw new GenericPersistenceException(genericMessage(exception), exception);
 		}
+	}
+	
+	@Override
+	public List<T> list() {
+		String search = String.format("Select %s from %s %s", firstElement, entityName, firstElement);
+		return this.entityManager.createQuery(search, domainClass).getResultList();
 	}
 	
 	private String genericMessage(Exception exception) {

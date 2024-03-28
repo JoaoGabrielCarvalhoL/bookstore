@@ -2,13 +2,11 @@ package br.com.joaogabriel.bookstore.entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 import br.com.joaogabriel.bookstore.enumerations.Role;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,6 +15,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -24,6 +24,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "tb_user")
+@NamedQueries( @NamedQuery(name = "User.findAll", query = "Select u from User u ORDER BY u.name"))
 public class User {
 
 	@Id
@@ -54,26 +55,25 @@ public class User {
 	private UserInformations userInformations;
 	
 	@Embedded
-	@Column(nullable = false)
-	@ElementCollection
-	private Set<Address> adresses;
+	private Address adresses;
 	
 	@Column(nullable = false)
 	private String cellphone;
 
 	public User() {}
 
-	public User(String name, String email, String username, String hashPassword, String cellphone) {
+	public User(String name, String email, String username, String hashPassword, String cellphone, Role role) {
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.hashPassword = hashPassword;
 		this.cellphone = cellphone;
 		this.isActive = true;
+		this.role = role;
 	}
 
-	public User(String name, String email, String username, String hashPassword, String cellphone, UserInformations userInfo, Set<Address> adresses) {
-		this(name, email, username, hashPassword, cellphone);
+	public User(String name, String email, String username, String hashPassword, String cellphone, Role role, UserInformations userInfo, Address adresses) {
+		this(name, email, username, hashPassword, cellphone, role);
 		this.userInformations = userInfo;
 		this.adresses = adresses;
 	}
@@ -163,11 +163,11 @@ public class User {
 		return Objects.hash(id);
 	}
 	
-	public Set<Address> getAdresses() {
-		return adresses;
+	public Address getAdresses() {
+		return this.adresses;
 	}
 	
-	public void setAdresses(Set<Address> adresses) {
+	public void setAdresses(Address adresses) {
 		this.adresses = adresses;
 	}
 

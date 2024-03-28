@@ -13,6 +13,8 @@ public interface CrudDao<T, ID> {
 	
 	Collection<T> findAll();
 	
+	List<T> list();
+	
 	List<T> findAllPageable(int init, int size, Ordering ordering, String orderByField);
 	
 	T findById(ID id);

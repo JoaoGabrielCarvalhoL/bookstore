@@ -9,11 +9,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_author")
+@NamedQueries({ @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a ORDER BY a.name"), 
+	@NamedQuery(name = "Author.count", query = "SELECT Count(*) FROM Author a")})
 public class Author {
 	
 	@Id
